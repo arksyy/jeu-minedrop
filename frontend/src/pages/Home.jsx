@@ -18,7 +18,7 @@ function Home() {
 
             <p className="mt-5 max-w-2xl text-base leading-7 text-gray-700 sm:text-lg">
               Le joueur doit obtenir des crédits en affectuant une activité physique. Lorsque je le joeur a des crédits, il peut
-              jouer au jeu, le but du jeu est détruire une colonne poiur ouvrir le coffre qui contient un multiplicateur déterminé au hasard.
+              jouer au jeu, le but du jeu est détruire une colonne pour ouvrir un coffre qui contient un multiplicateur déterminé au hasard.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
