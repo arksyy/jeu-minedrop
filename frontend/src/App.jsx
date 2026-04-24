@@ -20,7 +20,7 @@ function Layout() {
       </main>
       <div className="relative h-32 bg-green-500">
         {showPlatform && (
-          <div className="absolute bottom-full left-1/2 -translate-x-1/2 w-full max-w-xs h-10 bg-gray-300 border-2 border-gray-500" />
+          <div className="absolute inset-x-0 top-0 mx-auto h-10 w-full max-w-xs border-2 border-gray-500 bg-gray-300" />
         )}
       </div>
     </div>
