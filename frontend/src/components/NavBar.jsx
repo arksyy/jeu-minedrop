@@ -5,7 +5,10 @@ const linkClass = ({ isActive }) => (isActive ? 'font-bold' : '')
 function NavBar() {
   return (
     <nav className="flex items-center justify-between p-4 bg-white border-b border-gray-200 text-gray-900">
-      <Link to="/" className="text-2xl font-bold">MineDrop</Link>
+      <Link to="/" className="flex items-center gap-2 text-2xl font-bold">
+        <img src="/favicon.svg" alt="" className="w-8 h-8" />
+        MineDrop
+      </Link>
       <div className="flex gap-6">
         <NavLink to="/" end className={linkClass}>Accueil</NavLink>
         <NavLink to="/jeu" className={linkClass}>Jeu</NavLink>
