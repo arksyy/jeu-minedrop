@@ -38,7 +38,7 @@ function Layout() {
               />
             }
           />
-          <Route path="/tokens" element={<Tokens />} />
+          <Route path="/tokens" element={<Tokens tokens={tokens} setTokens={setTokens} />} />
         </Routes>
       </main>
       <div className="relative h-32 bg-green-500 flex items-center justify-center">
