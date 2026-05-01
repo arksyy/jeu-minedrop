@@ -24,7 +24,12 @@ function Layout() {
   return (
     <div className="min-h-screen flex flex-col bg-sky-300 text-gray-900">
       <NavBar />
-      <main className="flex-1 flex flex-col items-center justify-end px-8 pt-8 pb-12">
+      <main className="flex-1 flex flex-col items-center px-8 pt-4 pb-14">
+        {showPlatform && (
+          <div className="flex-1 flex items-center">
+            <span className="font-bold">Tokens : {tokens}</span>
+          </div>
+        )}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
@@ -42,7 +47,6 @@ function Layout() {
         </Routes>
       </main>
       <div className="relative h-32 bg-green-500 flex items-center justify-center">
-        <span className="font-bold">Tokens : {tokens}</span>
         {showPlatform && (
           <div className="absolute bottom-full left-1/2 -translate-x-1/2 w-[232px] h-10 bg-gray-300 border-2 border-gray-500 flex items-center justify-center font-bold">
             {winnings.toFixed(2)}

@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 function Home() {
   return (
-    <section className="w-full max-w-5xl mx-auto text-gray-900">
-      <div className="grid gap-6 lg:grid-cols-[1.45fr_0.85fr] items-start">
+    <section className="w-full max-w-5xl mx-auto flex-1 flex flex-col text-gray-900">
+      <div className="grid gap-4 lg:grid-cols-[1.45fr_0.85fr] items-start">
         <div className="border-2 border-black bg-gray-300">
           <div className="border-b-2 border-black bg-amber-800 px-4 py-2">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-white">
@@ -11,17 +11,17 @@ function Home() {
             </p>
           </div>
 
-          <div className="bg-gray-200 px-6 py-8 sm:px-8">
-            <h1 className="text-4xl font-black uppercase leading-tight sm:text-5xl">
+          <div className="bg-gray-200 px-6 py-6 sm:px-8">
+            <h1 className="text-3xl font-black uppercase leading-tight sm:text-4xl">
               MineDrop transforme l'effort en jeu de hasard
             </h1>
 
-            <p className="mt-5 max-w-2xl text-base leading-7 text-gray-700 sm:text-lg">
+            <p className="mt-4 max-w-2xl text-base leading-7 text-gray-700">
               Le joueur doit obtenir des crédits en affectuant une activité physique. Lorsque je le joeur a des crédits, il peut
               jouer au jeu, le but du jeu est détruire une colonne pour ouvrir un coffre qui contient un multiplicateur déterminé au hasard.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 to="/jeu"
                 className="border-2 border-black bg-yellow-400 px-5 py-3 font-bold uppercase tracking-wide text-black transition hover:bg-cyan-300"
@@ -51,16 +51,16 @@ function Home() {
         </aside>
       </div>
 
-      <div className="mt-6 grid gap-4 md:grid-cols-3">
+      <div className="mt-4 grid gap-4 md:grid-cols-3">
         <div className="border-2 border-black bg-gray-300">
           <div className="border-b-2 border-black bg-amber-800 px-4 py-2">
             <p className="text-sm font-bold uppercase tracking-wide text-white">
               Etape 1
             </p>
           </div>
-          <div className="px-5 py-5">
+          <div className="px-5 py-4">
             <h3 className="text-2xl font-black uppercase">Bouge</h3>
-            <p className="mt-3 text-sm leading-6 text-gray-700">
+            <p className="mt-2 text-sm leading-6 text-gray-700">
               Tu réalises un défi physique pour obtenir des crédits.
             </p>
           </div>
@@ -71,9 +71,9 @@ function Home() {
               Etape 2
             </p>
           </div>
-          <div className="px-5 py-5">
+          <div className="px-5 py-4">
             <h3 className="text-2xl font-black uppercase">Validation des crédis</h3>
-            <p className="mt-3 text-sm leading-6 text-gray-700">
+            <p className="mt-2 text-sm leading-6 text-gray-700">
               Les crédits sont appliqué lorsque tu valides une activité physique
             </p>
           </div>
@@ -84,9 +84,9 @@ function Home() {
               Etape 3
             </p>
           </div>
-          <div className="px-5 py-5">
+          <div className="px-5 py-4">
             <h3 className="text-2xl font-black uppercase">Miser et jouer</h3>
-            <p className="mt-3 text-sm leading-6 text-gray-700">
+            <p className="mt-2 text-sm leading-6 text-gray-700">
               Mettre une mise pour lancer le jeu
             </p>
           </div>

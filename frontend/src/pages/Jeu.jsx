@@ -196,7 +196,7 @@ function Jeu({ tokens, setTokens, winnings, setWinnings }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-5 gap-1 mt-6">
+        <div className="relative z-10 grid grid-cols-5 gap-1 mt-6">
           {chests.map((mult, i) => (
             <div
               key={i}
