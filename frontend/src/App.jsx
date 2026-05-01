@@ -14,12 +14,37 @@ const TITLES = {
 function Layout() {
   const { pathname } = useLocation()
   const showPlatform = pathname === '/jeu'
-  const [tokens, setTokens] = useState(1234)
+  const [tokens, setTokens] = useState(() => {
+    const saved = Number(localStorage.getItem('minedrop.tokens'))
+    return Number.isFinite(saved) ? saved : 0
+  })
   const [winnings, setWinnings] = useState(0)
+  const [motionConnected, setMotionConnected] = useState(false)
+
+  useEffect(() => {
+    localStorage.setItem('minedrop.tokens', String(tokens))
+  }, [tokens])
 
   useEffect(() => {
     document.title = TITLES[pathname] ?? 'Minedrop'
   }, [pathname])
+
+  useEffect(() => {
+    const ws = new WebSocket('ws://localhost:8000/ws')
+    ws.onopen = () => setMotionConnected(true)
+    ws.onclose = () => setMotionConnected(false)
+    ws.onmessage = (e) => {
+      try {
+        const data = JSON.parse(e.data)
+        if (typeof data.tokens === 'number') {
+          setTokens(t => t + data.tokens)
+        }
+      } catch {
+        // ignore malformed payload
+      }
+    }
+    return () => ws.close()
+  }, [])
 
   return (
     <div className="min-h-screen flex flex-col bg-sky-300 text-gray-900">
@@ -27,7 +52,7 @@ function Layout() {
       <main className="flex-1 flex flex-col items-center px-8 pt-4 pb-14">
         {showPlatform && (
           <div className="flex-1 flex items-center">
-            <span className="font-bold">Tokens : {tokens}</span>
+            <span className="font-bold">Tokens : {tokens.toFixed(2)}</span>
           </div>
         )}
         <Routes>
@@ -43,7 +68,7 @@ function Layout() {
               />
             }
           />
-          <Route path="/tokens" element={<Tokens tokens={tokens} setTokens={setTokens} />} />
+          <Route path="/tokens" element={<Tokens tokens={tokens} setTokens={setTokens} motionConnected={motionConnected} />} />
         </Routes>
       </main>
       <div className="relative h-32 bg-green-500 flex items-center justify-center">
