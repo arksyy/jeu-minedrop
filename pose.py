@@ -1,17 +1,12 @@
-"""Wrapper MediaPipe Pose: conversion landmarks -> dict de pixels."""
-from typing import Dict, Optional, Tuple
-
+# Wrapper simple autour de MediaPipe Pose
 import cv2
 import mediapipe as mp
 
-Point = Tuple[int, int]
-Landmarks = Dict[str, Point]
+mp_pose = mp.solutions.pose
+mp_drawing = mp.solutions.drawing_utils
+mp_styles = mp.solutions.drawing_styles
 
-_mp_pose = mp.solutions.pose
-_mp_drawing = mp.solutions.drawing_utils
-_mp_styles = mp.solutions.drawing_styles
-
-LANDMARK_NAMES = {
+LANDMARKS = {
     "nose": 0,
     "left_shoulder": 11, "right_shoulder": 12,
     "left_elbow": 13, "right_elbow": 14,
@@ -21,43 +16,37 @@ LANDMARK_NAMES = {
     "left_ankle": 27, "right_ankle": 28,
 }
 
-
 class PoseDetector:
-    def __init__(self,
-                 min_detection_confidence: float = 0.5,
-                 min_tracking_confidence: float = 0.5,
-                 model_complexity: int = 1):
-        self._pose = _mp_pose.Pose(
-            min_detection_confidence=min_detection_confidence,
-            min_tracking_confidence=min_tracking_confidence,
-            model_complexity=model_complexity,
-            enable_segmentation=False,
+    def __init__(self):
+        self.pose = mp_pose.Pose(
+            min_detection_confidence=0.5,
+            min_tracking_confidence=0.5,
+            model_complexity=1,
         )
-        self._last_result = None
+        self.result = None
 
-    def process(self, frame_bgr) -> Optional[Landmarks]:
-        h, w = frame_bgr.shape[:2]
-        rgb = cv2.cvtColor(frame_bgr, cv2.COLOR_BGR2RGB)
-        rgb.flags.writeable = False
-        result = self._pose.process(rgb)
-        self._last_result = result
-        if not result.pose_landmarks:
+    def process(self, frame):
+        h, w = frame.shape[:2]
+        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        self.result = self.pose.process(rgb)
+
+        if not self.result.pose_landmarks:
             return None
-        lms = result.pose_landmarks.landmark
-        out: Landmarks = {}
-        for name, idx in LANDMARK_NAMES.items():
-            lm = lms[idx]
-            out[name] = (int(lm.x * w), int(lm.y * h))
-        return out
 
-    def draw(self, frame_bgr) -> None:
-        if self._last_result and self._last_result.pose_landmarks:
-            _mp_drawing.draw_landmarks(
-                frame_bgr,
-                self._last_result.pose_landmarks,
-                _mp_pose.POSE_CONNECTIONS,
-                landmark_drawing_spec=_mp_styles.get_default_pose_landmarks_style(),
+        points = {}
+        for name, idx in LANDMARKS.items():
+            lm = self.result.pose_landmarks.landmark[idx]
+            points[name] = (int(lm.x * w), int(lm.y * h))
+        return points
+
+    def draw(self, frame):
+        if self.result and self.result.pose_landmarks:
+            mp_drawing.draw_landmarks(
+                frame,
+                self.result.pose_landmarks,
+                mp_pose.POSE_CONNECTIONS,
+                landmark_drawing_spec=mp_styles.get_default_pose_landmarks_style(),
             )
 
-    def close(self) -> None:
-        self._pose.close()
+    def close(self):
+        self.pose.close()
