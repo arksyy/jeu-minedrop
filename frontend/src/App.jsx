@@ -30,7 +30,8 @@ function Layout() {
   }, [pathname])
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:8000/ws')
+    const host = window.location.hostname || 'localhost'
+    const ws = new WebSocket(`ws://${host}:8000/ws`)
     ws.onopen = () => setMotionConnected(true)
     ws.onclose = () => setMotionConnected(false)
     ws.onmessage = (e) => {

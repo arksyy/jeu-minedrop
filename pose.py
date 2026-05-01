@@ -16,12 +16,17 @@ LANDMARKS = {
     "left_ankle": 27, "right_ankle": 28,
 }
 
+import os
+
+POSE_MODEL_COMPLEXITY = int(os.environ.get("MINEDROP_POSE_COMPLEXITY", "0"))
+
+
 class PoseDetector:
     def __init__(self):
         self.pose = mp_pose.Pose(
             min_detection_confidence=0.5,
             min_tracking_confidence=0.5,
-            model_complexity=1,
+            model_complexity=POSE_MODEL_COMPLEXITY,
         )
         self.result = None
 

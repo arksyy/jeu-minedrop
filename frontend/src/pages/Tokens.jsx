@@ -7,7 +7,10 @@ const ACTIVITIES = [
   '6-7 memes',
 ]
 
-const COACH_BASE_URL = 'http://localhost:8001'
+const COACH_HOST = typeof window !== 'undefined' && window.location.hostname
+  ? window.location.hostname
+  : 'localhost'
+const COACH_BASE_URL = `http://${COACH_HOST}:8001`
 const CAMERA_STREAM_URL = `${COACH_BASE_URL}/video`
 
 function Tokens({ tokens, setTokens: _setTokens, motionConnected }) {

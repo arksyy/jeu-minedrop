@@ -16,6 +16,8 @@ DONE_HOLD = 2.0
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 BACKEND_URL = os.environ.get("MINEDROP_BACKEND", "http://localhost:8000").rstrip("/") + "/motion"
 CAM_INDEX = int(os.environ.get("MINEDROP_CAM", "0"))
+CAM_WIDTH = int(os.environ.get("MINEDROP_CAM_WIDTH", "640"))
+CAM_HEIGHT = int(os.environ.get("MINEDROP_CAM_HEIGHT", "480"))
 MJPEG_PORT = int(os.environ.get("MINEDROP_MJPEG_PORT", "8001"))
 SESSION_REWARD = 67
 
@@ -182,6 +184,11 @@ def main():
     if not cap.isOpened():
         print(f"Erreur: impossible d'ouvrir la camera (index={CAM_INDEX})")
         return
+
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, CAM_WIDTH)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, CAM_HEIGHT)
+    cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+    print(f"Cam: {int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))}x{int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))}")
 
     start_mjpeg_server()
     pose = PoseDetector()
