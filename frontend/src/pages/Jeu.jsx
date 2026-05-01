@@ -15,6 +15,7 @@ const CELLS = TOP_ROWS * COLS
 const MISE_STEP = 10
 const MISE_MIN = 10
 const SPINS_PER_MISE = 4
+const MAX_PICKAXES = 12
 
 const PICKAXES = [
   '/wood-pickaxe.png',
@@ -34,8 +35,8 @@ const MULTIPLIERS = [
   { value: 2, weight: 40 },
   { value: 4, weight: 30 },
   { value: 10, weight: 15 },
-  { value: 25, weight: 10 },
-  { value: 100, weight: 5 },
+  { value: 18, weight: 10 },
+  { value: 65, weight: 5 },
 ]
 
 function randomMultiplier() {
@@ -49,7 +50,7 @@ function randomMultiplier() {
 }
 
 function generatePickaxes() {
-  const count = Math.floor(Math.random() * (CELLS + 1))
+  const count = Math.floor(Math.random() * (MAX_PICKAXES + 1))
   const positions = new Set()
   while (positions.size < count) {
     positions.add(Math.floor(Math.random() * CELLS))
